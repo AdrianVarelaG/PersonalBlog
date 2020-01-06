@@ -8,67 +8,28 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Helmet from "react-helmet"
-import { useStaticQuery, graphql } from "gatsby"
+import { withPrefix } from "gatsby"
+import { useSiteMetaData } from "../hooks"
 
-function SEO({ description, lang, meta, title }) {
-  const { site } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-            author
-          }
-        }
-      }
-    `
-  )
+const SEO = ({ description, lang, meta, title }) => {
+  const siteMetadata = useSiteMetaData()
+  const metaDescription = description || siteMetadata.description
+  const metaImage = siteMetadata.author.photo
 
-  const metaDescription = description || site.siteMetadata.description
+  const metaImageUrl = siteMetadata.siteUrl + withPrefix(metaImage)
 
   return (
-    <Helmet
-      htmlAttributes={{
-        lang,
-      }}
-      title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
-      meta={[
-        {
-          name: `description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: site.siteMetadata.author,
-        },
-        {
-          name: `twitter:title`,
-          content: title,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
-        },
-      ].concat(meta)}
-    />
+    <Helmet>
+      <html lang="en" />
+      <title>{siteMetadata.title}</title>
+      <meta name="description" content={metaDescription} />
+      <meta property="og:site_name" content={siteMetadata.title} />
+      <meta property="og:image" content={metaImageUrl} />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:title" content={siteMetadata.title} />
+      <meta name="twitter:description" content={metaDescription} />
+      <meta name="twitter:image" content={metaImageUrl} />
+    </Helmet>
   )
 }
 
@@ -82,7 +43,6 @@ SEO.propTypes = {
   description: PropTypes.string,
   lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
-  title: PropTypes.string.isRequired,
 }
 
 export default SEO

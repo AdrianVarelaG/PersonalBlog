@@ -1,11 +1,22 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
-    author: `Kyle Mathews`,
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
+    title: `Blog by Adrian Varela`,
+    author: {
+      name: `Cesar Adrian Varela Guerrero`,
+      bio: `Apasionado por la industria del software y las ultimas tendencias en desarrollo.`,
+      photo: `/photo.jpg`,
+    },
+    menu: [
+      { label: "Inicio", path: "/" },
+      { label: "sobre mi", path: "/about" },
+      { label: "Contacto", path: "/contacts" },
+    ],
+    description: `Sitio personal para llevar el registro`,
+    siteUrl: `https://adrian-varela.com/`,
     social: {
-      twitter: `kylemathews`,
+      twitter: `AdrianVarelaG`,
+      github: `AdrianVarelaG`,
+      linkedin: `AdrianVarelaG`,
     },
   },
   plugins: [
@@ -50,7 +61,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        //trackingId: `ADD YOUR TRACKING ID HERE`,
+        trackingId: `UA-155158880-1`,
       },
     },
     `gatsby-plugin-feed`,
@@ -63,7 +74,7 @@ module.exports = {
         background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `content/assets/gatsby-icon.png`,
+        icon: `static/photo.jpg`,
       },
     },
     `gatsby-plugin-offline`,
@@ -74,5 +85,6 @@ module.exports = {
         pathToConfigModule: `src/utils/typography`,
       },
     },
+    `gatsby-plugin-sass`,
   ],
 }

@@ -23,7 +23,9 @@ const Bio = () => {
       }
       site {
         siteMetadata {
-          author
+          author {
+            name
+          }
           social {
             twitter
           }
@@ -42,7 +44,7 @@ const Bio = () => {
     >
       <Image
         fixed={data.avatar.childImageSharp.fixed}
-        alt={author}
+        alt={author.name}
         style={{
           marginRight: rhythm(1 / 2),
           marginBottom: 0,
@@ -54,12 +56,10 @@ const Bio = () => {
         }}
       />
       <p>
-        Written by <strong>{author}</strong> who lives and works in San
-        Francisco building useful things.
+        Escrito por <strong>{author.name}</strong> quien vive y trabaja para
+        construir cosas utiles.
         {` `}
-        <a href={`https://twitter.com/${social.twitter}`}>
-          You should follow him on Twitter
-        </a>
+        <a href={`https://twitter.com/${social.twitter}`}>siguelo en twitter</a>
       </p>
     </div>
   )
