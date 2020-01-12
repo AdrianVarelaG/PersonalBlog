@@ -11,7 +11,7 @@ module.exports = {
       { label: "sobre mi", path: "/about" },
       { label: "Contacto", path: "/contacts" },
     ],
-    description: `Sitio personal para llevar el registro`,
+    description: `Sitio personal Developer profesional `,
     siteUrl: `https://adrian-varela.com/`,
     social: {
       twitter: `AdrianVarelaG`,
