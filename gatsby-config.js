@@ -68,11 +68,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `GatsbyJS`,
+        name: `Adrian Varela Personal Blog`,
+        short_name: `AdrianVarela`,
         start_url: `/`,
         background_color: `#ffffff`,
-        theme_color: `#663399`,
+        theme_color: `#4675c2`,
         display: `minimal-ui`,
         icon: `static/photo.jpg`,
       },
