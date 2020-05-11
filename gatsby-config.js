@@ -17,6 +17,7 @@ module.exports = {
       twitter: `AdrianVarelaG`,
       github: `AdrianVarelaG`,
       linkedin: `AdrianVarelaG`,
+      dev: "adrianvarelag",
     },
   },
   plugins: [

@@ -41,6 +41,9 @@ const getContactHref = (name, contact) => {
     case "youtube":
       href = `https://www.youtube.com/channel/${contact}`
       break
+    case "dev":
+      href = `https://dev.to/${contact}`
+      break
     default:
       href = contact
       break

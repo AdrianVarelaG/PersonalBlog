@@ -46,6 +46,9 @@ const getIcon = name => {
     case "youtube":
       icon = ICONS.YOUTUBE
       break
+    case "dev":
+      icon = ICONS.DEV
+      break
     default:
       icon = {}
       break

@@ -1,5 +1,5 @@
-import React, { Fragment } from "react"
-import { rhythm, scale } from "../utils/typography"
+import React from "react"
+//import { rhythm, scale } from "../utils/typography"
 import Sidebar from "./sidebar/sidebar"
 import styles from "./layout.module.scss"
 import Page from "./page/page"

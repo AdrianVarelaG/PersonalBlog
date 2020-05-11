@@ -19,6 +19,7 @@ const useSiteMetadata = () => {
               twitter
               github
               linkedin
+              dev
             }
             title
             siteUrl
