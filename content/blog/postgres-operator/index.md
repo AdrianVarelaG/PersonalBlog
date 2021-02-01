@@ -101,7 +101,7 @@ We need to include two Environment variables more but this should be secrets. Th
 export ACCESS_KEY=......
 export SECRET_KEY=......
 ```
-As i mention before, i am using sealed secret, so let's create it. I forgot to mention but sealed secret has a cli `kubeseal`, with the command below we can create a secret using `kubectl`, then pipe the output to `kubeseal` and create a file with the output.
+As I mention before, I am using sealed secret, so let's create it. I forgot to mention but sealed secret has a CLI `kubeseal`, with the command below we can create a secret using `kubectl`, then pipe the output to `kubeseal` and create a file with the output.
 ```bash
 kubectl --namespace default \
     create secret \
@@ -133,7 +133,7 @@ spec:
 ```
 ## Installation 
 
-For the installation first we need to create the ConfigMap in the k8s cluster, but I include de config map in the template folder in the Helm chart, so nothing to apply because Helm will apply it. you can see the `postgres-pod-config.yaml` in the image below.
+For the installation first we need to create the config map in the k8s cluster, but I include the config map in the template folder in the Helm chart, so nothing to apply because Helm will apply it. you can see the `postgres-pod-config.yaml` in the image below.
 
 <img src="./images/helm-chart.png"
      alt="Postgres operator Helm chart"
