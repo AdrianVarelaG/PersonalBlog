@@ -4,8 +4,6 @@ import Icon from "../icon/icon"
 import "./contacts.scss"
 
 const Contacts = ({ contacts }) => {
-  console.log(contacts)
-
   return (
     <div className={"contacts"}>
       <ul className={"contacts__list"}>
