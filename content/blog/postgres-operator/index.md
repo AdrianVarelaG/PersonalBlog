@@ -19,7 +19,7 @@ The Postgres Operator official definition is:
 
 ### What we get
 
-Ones the operator is installed, you can easily setup a databases according to the image below. 
+Once the operator is installed, you can easily setup a databases according to the image below. 
 
 <img src="./images/neutral-operator.png"
      alt="zalando Postgres operator : supported setups"
