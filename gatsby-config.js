@@ -4,7 +4,7 @@ module.exports = {
     author: {
       name: `Cesar Adrian Varela Guerrero`,
       bio: `Apasionado por la industria del software y las ultimas tendencias en desarrollo.`,
-      photo: `/photo.jpg`,
+      photo: `/photo.png`,
     },
     menu: [
       { label: "Inicio", path: "/" },
