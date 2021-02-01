@@ -5,9 +5,9 @@ description: "This is a tutorial to use zalando postgres-operator using DigitalO
 ---
 
 ## Introduction
-As introduction I have to say that if you want to manage many databases a convenient way to do it is using a operator this way the operator manage the databases. Today we will install zalando postgres operator and we create a cluster with WAL files and base backups.  
+As introduction I have to say that if you want to manage many databases, a convenient way to do it is using an operator, this way the operator manage the databases. Today we will install zalando postgres operator and we will create a cluster with WAL files and base backups.  
 
-The official definition is:
+The Postgres Operator official definition is:
 >The Postgres Operator delivers an easy to run highly-available [PostgreSQL](https://www.postgresql.org/) clusters on Kubernetes (K8s) powered by [Patroni](https://github.com/zalando/spilo). It is configured only through Postgres manifests (CRDs) to ease integration into automated CI/CD pipelines with no access to Kubernetes API directly, promoting infrastructure as code vs manual operations.
 
 ### Operator features 
@@ -19,20 +19,20 @@ The official definition is:
 
 ### What we get
 
-One the operator is installer, you can easily setup a databases according to the image below. 
+Ones the operator is installed, you can easily setup a databases according to the image below. 
 
 <img src="./images/neutral-operator.png"
      alt="zalando Postgres operator : supported setups"
      style="float: left; margin-right: 10px;" />
 
-## PRE-REQUISIT
-As pre-requisites we need:
+## Prerequisite
+As prerequisite we need:
 * Kubernetes cluster (in my case I will use a Digital Ocean)
 * *S3* compatible service (in my case Digital Ocean spaces)
 * *S3* bucket pre configured
 
 ### My special setup
-In my case I am using [terraform](https://www.terraform.io/) to create the bucket so was really easy including the resource in the definition.
+In my case I am using [terraform](https://www.terraform.io/) to create the bucket, so it was really easy to include the resource in the definition.
 
 ```terraform
 resource "digitalocean_spaces_bucket" "beet-infra" {
@@ -41,7 +41,7 @@ resource "digitalocean_spaces_bucket" "beet-infra" {
   acl     = "private"
 }
 ```
-I am also using [sealed-secrets](https://github.com/bitnami-labs/sealed-secrets) this allow me to include my secretes in the repository I am also using terraform to install this component.
+I am also using [sealed-secrets](https://github.com/bitnami-labs/sealed-secrets), this allow me to include my secretes in the repository. I am also using terraform to install this component.
 ```terraform
 resource "helm_release" "sealed-secrets" {
   name        = "sealed-secrets"
@@ -53,7 +53,7 @@ resource "helm_release" "sealed-secrets" {
 ```
 time to start.
 ## Initial setup
-First we need to create a namespace you can use `kubectl` in my case terraform
+First we need to create a namespace, you can use `kubectl` in my case terraform
 ```
 resource "kubernetes_namespace" "postgres-operator" {
   metadata {
@@ -82,12 +82,12 @@ configAwsOrGcp:
   wal_s3_bucket: "beet-infra"
 ```
 Les's review the changes 
-* **pod_environment_configmap: "postgres-operator/postgres-pod-config"** this is a config map that injects on each pod the values of the config map the format is namespaces/name.
-* **pod_environment_secret: "postgres-operator"** this is a secret need to be created in the namespace of the postgres cluster.
+* **pod_environment_configmap: "postgres-operator/postgres-pod-config"** this is a config map that injects on each pod the values of the config map, the format is namespaces/name.
+* **pod_environment_secret: "postgres-operator"** this is a secret that needs to be created in the namespace of the postgres cluster.
 * **aws_region: ny3** this is the region on DigitalOcean from my space
 * **wal_s3_bucket: "beet-infra"** Name of the bucket 
 
-Now lest review the `postgres-pod-config.yaml` we need to indicate the endpoint for the bucket to inject more configuration you can review the [spilo env](https://github.com/zalando/spilo/blob/master/ENVIRONMENT.rst) variables we need to include two Environment variables more but this should be secrets.
+Now let's review the `postgres-pod-config.yaml`. We need to indicate the endpoint for the bucket, also you can inject more configuration reviewing the [spilo env](https://github.com/zalando/spilo/blob/master/ENVIRONMENT.rst) variables. 
 ```yaml
 apiVersion: v1
 kind: ConfigMap
@@ -96,12 +96,12 @@ metadata:
 data:
   AWS_ENDPOINT: https://nyc3.digitaloceanspaces.com
 ```
-The constrain with the secretes is that they need to exist in the same name space from the postgres cluster so create two environment variables with the value of space access and secret key
+We need to include two Environment variables more but this should be secrets. The constrain with the secrets is that they need to exist in the same name space from the postgres cluster, so you need to create two environment variables with the value of space access and secret key.
 ```bash
 export ACCESS_KEY=......
 export SECRET_KEY=......
 ```
-As i mention i am using sealed secret, so let's create it. I forgot to mention but kubeseal have a cli with the command below we can create a secret using `kubectl` and we pipe the output to `kubeseal` and create a file with the output.
+As i mention before, i am using sealed secret, so let's create it. I forgot to mention but sealed secret has a cli `kubeseal`, with the command below we can create a secret using `kubectl`, then pipe the output to `kubeseal` and create a file with the output.
 ```bash
 kubectl --namespace default \
     create secret \
@@ -131,9 +131,9 @@ spec:
       name: postgres-operator
       namespace: default
 ```
-## instalation 
+## Installation 
 
-For the installation first we need to create the ConfigMap in the cluster but i include de config map in the template folder in the Helm chart so noting to apply because Helm will apply it you can see the `postgres-pod-config.yaml` in the image below.
+For the installation first we need to create the ConfigMap in the k8s cluster, but I include de config map in the template folder in the Helm chart, so nothing to apply because Helm will apply it. you can see the `postgres-pod-config.yaml` in the image below.
 
 <img src="./images/helm-chart.png"
      alt="Postgres operator Helm chart"
@@ -153,7 +153,7 @@ kubectl -n postgres-operator get pods
 NAME                                 READY   STATUS    RESTARTS   AGE
 postgres-operator-694bdb9d54-55qkx   1/1     Running   0          7s
 ``` 
-Now let's use the default namespace first we need the sealed secret use the command `kubectl apply -f postgres-operator-secret.yaml` this will create the secret. The next is to apply the file with the database definition, for that lest review it, i am using the `minimal-postgres-manifest.yaml` you can find it in the same repository `manifests/minimal-postgres-manifest.yaml` in this file the only change is in the field `storageClass` in this case the value depends of your cloud provider for digital ocean the value is `do-block-storage` and with that the persistent volume claim will be created.
+Now let's use the default namespace, first we need the sealed secret use the command `kubectl apply -f postgres-operator-secret.yaml` this will create the secret. The next step is to apply the file with the database definition, for that let's review it, I am using the `minimal-postgres-manifest.yaml` you can find it in the same repository `manifests/minimal-postgres-manifest.yaml` in this file the only change is in the field `storageClass` in this case the value depends on your cloud provider, for digital ocean the value is `do-block-storage` and with that the persistent volume claim will be created.
 ```yaml
 apiVersion: "acid.zalan.do/v1"
 kind: postgresql
@@ -177,7 +177,7 @@ spec:
   postgresql:
     version: "13"
 ```
-After a few seconds we can see the the 2 pods create the services for the master and for the replica.
+After a few seconds we can see the two pods, the service for the master and the service for replica were created.
 ```bash
 kubectl apply -f minimal-postgres-manifest.yaml
 kubectl get pods,service
@@ -197,7 +197,7 @@ In the space in Digital ocean we can review the WAL files.
      alt="WAL files "
      style="float: left; margin-right: 10px;" />
 
-Now if we connect to the pod and review the configuration for the base backup and the postgres database
+Now we will connect to the pod and review the configuration for the base backup in the postgres database.
 ```
 kubectl exec -it acid-minimal-cluster-0 -- bash
 
@@ -227,4 +227,4 @@ postgres=# \l
 ```
 
 ## Conclusion
-As you can see the operator is the best way to manage many postgres clusters and can be done in different namespaces the only disadvantage is the secret needs to be injected on each namespace but is something that can be automatic. After the operator is configured we get base backups, WAL files and stream replication with no effort. 
+As you can see, the operator is the best way to manage many postgres clusters and can be done in different namespaces. The only disadvantage is the secret needs to be injected on each namespace, but is something that can be automatic. After the operator is configured we get base backups, WAL files and stream replication with no effort. 
