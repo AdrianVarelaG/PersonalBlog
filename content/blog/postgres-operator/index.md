@@ -5,7 +5,7 @@ description: "This is a tutorial to use zalando postgres-operator using DigitalO
 ---
 
 ## Introduction
-As introduction I have to say that if you want to manage many databases, a convenient way to do it is using an operator, this way the operator manage the databases. Today we will install zalando postgres operator and we will create a cluster with WAL files and base backups.  
+As background there are some issues in manages databases manually, like the provisioning, backup, upgrade the versions; this are only some of the task that you have to take care of. So, a convenient way to automate this work flow is using an operator, this way the operator manage the databases and the configuration for the backups. Today we will install zalando postgres operator and we will create a cluster with WAL files and base backups. 
 
 The Postgres Operator official definition is:
 >The Postgres Operator delivers an easy to run highly-available [PostgreSQL](https://www.postgresql.org/) clusters on Kubernetes (K8s) powered by [Patroni](https://github.com/zalando/spilo). It is configured only through Postgres manifests (CRDs) to ease integration into automated CI/CD pipelines with no access to Kubernetes API directly, promoting infrastructure as code vs manual operations.
@@ -41,7 +41,7 @@ resource "digitalocean_spaces_bucket" "beet-infra" {
   acl     = "private"
 }
 ```
-I am also using [sealed-secrets](https://github.com/bitnami-labs/sealed-secrets), this allow me to include my secretes in the repository. I am also using terraform to install this component.
+I am also using [sealed-secrets](https://github.com/bitnami-labs/sealed-secrets), this allow me to include my secrets in the code repository. I am also using terraform to install this component.
 ```terraform
 resource "helm_release" "sealed-secrets" {
   name        = "sealed-secrets"
