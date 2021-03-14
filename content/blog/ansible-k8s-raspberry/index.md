@@ -11,9 +11,9 @@ Ansible make easy to do this process at scale, I mean you can bootstrap as many 
 
 ## Prerequisite
 
-This is not a [Ansible](https://www.ansible.com/) tutorial so preview knowledge is required. If you need to learn basic ansible, I personal recommend [Getting started with Ansible](https://www.youtube.com/watch?v=3RiVKs8GHYQ&list=PLT98CRl2KxKEUHie1m24-wkyHpEsa4Y70) from [LearnLinuxTV](https://www.youtube.com/channel/UCxQKHvKbmSzGMvUrVtJYnUA) YouTube channel.
+This is not a [Ansible](https://www.ansible.com/) tutorial so previous knowledge is required. If you need to learn basic ansible, I personal recommend [Getting started with Ansible](https://www.youtube.com/watch?v=3RiVKs8GHYQ&list=PLT98CRl2KxKEUHie1m24-wkyHpEsa4Y70) from [LearnLinuxTV](https://www.youtube.com/channel/UCxQKHvKbmSzGMvUrVtJYnUA) YouTube channel.
 
-Previews knowledge of kubernetes is required, we do not explain kubernetes architecture or `kubectl` CLI.
+previous knowledge of kubernetes is required, we do not explain kubernetes architecture or `kubectl` CLI.
 
 You need at least one Raspberry Pi with Ubuntu 20.04 installed, we will follow the instructions of [Install kubernetes on raspberry pi 4 (ubuntu 20.4) by kubespray.](https://www.youtube.com/watch?v=8fYtvRazzpo) you can find the commands in this [file](https://github.com/netdevopsx/youtube/blob/master/kubernetes_raspberrypi.txt)
 
@@ -267,7 +267,7 @@ ubuntu@node1:~$ kubectl -n kube-system logs calico-node-2cz85  -c upgrade-ipam
 standard_init_linux.go:211: exec user process caused "exec format error"
 ```
 ### The Fix
-To fix this problems as the issue indicates, we can use the docker registry images, so we need to edit the `deamonset` and change the registry from `quay.io` to `docker.io` we use this command to made the changes `kubectl -n kube-system edit daemonset.apps/calico-node`.
+To fix this problem as the issue indicates, we can use the docker registry images, so we need to edit the `deamonset` and change the registry from `quay.io` to `docker.io` we use this command to made the changes `kubectl -n kube-system edit daemonset.apps/calico-node`.
 
 After a few seconds we can review the pods. As you can see the calico-node pod is running, but the calico-kube-controllers pod is not. The problem is the same, so time to edit the deployment `kubectl -n kube-system edit deployment/calico-kube-controllers` 
 
