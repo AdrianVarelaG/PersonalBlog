@@ -301,6 +301,14 @@ pod/kube-proxy-99r5k                          1/1     Running   0          26m
 pod/kube-scheduler-node1                      1/1     Running   0          27m
 pod/nodelocaldns-tsdhc                        1/1     Running   0          23m
 ``` 
+
+## A better Solution
+Ones We know what the error is, We can modify the kubespray ansible files before bootstrap the k8s cluster. Let's modify the file `roles/download/defaults/main.yml` as you can see in the image below we changed the registry, then the images are pull from docker hub.
+
+<img src="./images/ansible-files.png"
+     alt="Ansible project structure "
+     style="float: left; margin-right: 10px;" />
+
 ## Conclusion
 Using Ansible to automatic initialize the Raspberry Pis is very useful and allows you to not make the same configuration over and over again. A small project like this helps a lot to explore Ansible and to have a better understanding of this tool.
 
