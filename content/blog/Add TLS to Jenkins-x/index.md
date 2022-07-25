@@ -3,6 +3,7 @@ title: Agregar TLS a la instalación de Jenkins-x
 date: "2020-03-08T19:00:00.000Z"
 description: "En este post vamos a hablar acerca de como agregar TLS a la instalacion de jenkins-x"
 ---
+Hola aragon. 
 Bueno para empezar tenemos que definir por que esto podría no ser posible o difícil de logar de manera automática.
 
 El soporte para TLS en Jenkins-x es solo para GKS y EKS ya que si nosotros lo intentamos instalar tenemos que ver que vamos a cambiar y entender que componente usa jenkins-x.
